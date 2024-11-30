@@ -13,8 +13,15 @@ RUN mvn clean package
 # Stage 2: Use Tomcat to deploy the application
 FROM tomcat:9.0
 
+# Change Tomcat's default port to 5000
+RUN sed -i 's/port="8080"/port="5000"/g' /usr/local/tomcat/conf/server.xml
+
 # Copy the WAR file from the builder stage to the Tomcat webapps directory
 COPY --from=builder /app/target/*.war /usr/local/tomcat/webapps/MyJavaApp.war
 
-# Expose the Tomcat port
+# Expose the custom port
 EXPOSE 5000
+
+# Default command to start Tomcat
+CMD ["catalina.sh", "run"]
+
