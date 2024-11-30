@@ -17,4 +17,4 @@ FROM tomcat:9.0
 COPY --from=builder /app/target/*.war /usr/local/tomcat/webapps/MyJavaApp.war
 
 # Expose the Tomcat port
-EXPOSE 8080
+EXPOSE 5000
